@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import Alert from './Alert'; // Import your custom Alert component here
+import Alert from './Alert';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TaskList = ({ tasks, onDelete, onEdit, onComplete }) => {
   const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
@@ -23,11 +24,25 @@ const TaskList = ({ tasks, onDelete, onEdit, onComplete }) => {
   };
 
   const renderItem = ({ item }) => (
+
     <View style={styles.cardContainer}>
+      {!item.completed && (
+        <TouchableOpacity
+          style={styles.readButton}
+          onPress={() => onComplete(item.id)}
+        >
+          <Icon name="check" size={24} color="white" />
+        </TouchableOpacity>
+      )}
+
       <TouchableOpacity style={styles.card} onPress={() => onEdit(item.id)}>
         <Text>{item.title}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => showDeleteConfirmation(item.id)}>
+
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => showDeleteConfirmation(item.id)}
+      >
         <Text style={{ color: 'white' }}>Delete</Text>
       </TouchableOpacity>
     </View>
@@ -41,7 +56,6 @@ const TaskList = ({ tasks, onDelete, onEdit, onComplete }) => {
         renderItem={renderItem}
       />
 
-      {/* Delete Confirmation Modal */}
       <Alert visible={deleteConfirmationVisible} onCancel={cancelDelete} onConfirm={confirmDelete} />
     </View>
   );
@@ -66,6 +80,15 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     marginLeft: 8,
+  },
+  readButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
   },
 });
 

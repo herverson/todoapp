@@ -84,10 +84,6 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, padding: 16 }}>
-        <TouchableOpacity style={styles.addButton} onPress={() => setIsAddModalVisible(true)}>
-          <Text style={{ color: 'white', fontSize: 20 }}>+</Text>
-        </TouchableOpacity>
-
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
           <TouchableOpacity onPress={() => setFilter('all')}>
             <Text style={{ fontWeight: filter === 'all' ? 'bold' : 'normal' }}>All</Text>
@@ -112,18 +108,29 @@ const HomeScreen = () => {
           tasks={tasks}
         />
       </View>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => {
+          setIsAddModalVisible(true);
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 20 }}>+</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   addButton: {
+    backgroundColor: 'blue',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     bottom: 16,
     right: 16,
-    backgroundColor: 'blue',
-    borderRadius: 50,
-    padding: 16,
     elevation: 5,
   },
 });
